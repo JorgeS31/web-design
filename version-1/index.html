@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto - Versión 1</title>
+    
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Assets/favicon.png">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="Assets/Css/styles.css">
+    
+    <style>
+        .version-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6c757d;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer sencillo para V1 */
+        .footer-simple {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .footer-simple p {
+            margin: 0.5rem 0;
+            color: #cbd5e0;
+        }
+        
+        .footer-simple .nombre {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="version-badge">⚡ VERSIÓN 1 - Original</div>
+
+    <!-- NAVBAR SENCILLO -->
+    <nav class="navbar" style="margin: 1rem auto; max-width: 800px;">
+        <div class="navbar-container" style="justify-content: center;">
+            <div class="navbar-brand">
+                <span style="font-size: 1.5rem;">📋 Formulario V1</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- Hero Section sencillo -->
+        <section class="hero-section" style="background: rgba(255,255,255,0.15); padding: 2rem;">
+            <h1 class="hero-title" style="font-size: 2.2rem;">Completa tu Información</h1>
+            <p class="hero-subtitle" style="font-size: 1.1rem;">Versión básica - Bordes normales</p>
+        </section>
+
+        <!-- Formulario Section -->
+        <section class="form-section" style="min-height: auto; padding: 1rem;">
+            <div class="form-card" style="max-width: 600px; padding: 2rem;">
+                <form id="contactForm" onsubmit="event.preventDefault(); validateForm();">
+                    <!-- Nombre Completo -->
+                    <div class="form-group">
+                        <label for="nombreCompleto">NOMBRE COMPLETO</label>
+                        <input type="text" class="form-control" id="nombreCompleto" 
+                               placeholder="Ingresa tu nombre" required>
+                        <div class="error-message" id="error-nombre"></div>
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="form-group">
+                        <label for="correo">CORREO ELECTRÓNICO</label>
+                        <input type="email" class="form-control" id="correo" 
+                               placeholder="ejemplo@correo.com" required>
+                        <div class="error-message" id="error-correo"></div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="form-group">
+                        <label for="telefono">TELÉFONO</label>
+                        <input type="tel" class="form-control" id="telefono" 
+                               placeholder="+34 123 456 789" required>
+                        <div class="error-message" id="error-telefono"></div>
+                    </div>
+
+                    <!-- País -->
+                    <div class="form-group">
+                        <label for="pais">PAÍS</label>
+                        <select class="form-control" id="pais" required>
+                            <option value="" disabled selected>— Selecciona un país —</option>
+                            <option value="MX">🇲🇽 México</option>
+                            <option value="ES">🇪🇸 España</option>
+                            <option value="AR">🇦🇷 Argentina</option>
+                            <option value="CO">🇨🇴 Colombia</option>
+                            <option value="US">🇺🇸 Estados Unidos</option>
+                        </select>
+                        <div class="error-message" id="error-pais"></div>
+                    </div>
+
+                    <!-- Mensaje -->
+                    <div class="form-group">
+                        <label for="mensaje">MENSAJE</label>
+                        <textarea class="form-control" id="mensaje" 
+                                  placeholder="Escribe tu mensaje..."
+                                  rows="4" required></textarea>
+                        <div class="error-message" id="error-mensaje"></div>
+                    </div>
+
+                    <!-- Botón Enviar -->
+                    <div class="form-actions" style="border-top: none; margin-top: 1rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER SENCILLO -->
+    <footer class="footer-simple">
+        <p class="nombre">Jorge Luis Ponce Sandoval</p>
+        <p>Desarrollador Web · Versión 1</p>
+        <p>✉️ jorge.ponce@dev.com · 📞 +34 123 456 789</p>
+        <p style="font-size: 0.8rem; color: #a0aec0; margin-top: 1.5rem;">© 2026 - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- JAVASCRIPT BÁSICO -->
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            // Limpiar errores
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid', 'is-valid'));
+            
+            // Validar nombre
+            const nombre = document.getElementById('nombreCompleto');
+            if (nombre.value.trim() === '') {
+                document.getElementById('error-nombre').textContent = 'El nombre es obligatorio';
+                nombre.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nombre.classList.add('is-valid');
+            }
+            
+            // Validar correo
+            const correo = document.getElementById('correo');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo.value)) {
+                document.getElementById('error-correo').textContent = 'Correo inválido';
+                correo.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                correo.classList.add('is-valid');
+            }
+            
+            // Validar teléfono
+            const telefono = document.getElementById('telefono');
+            if (telefono.value.trim().length < 10) {
+                document.getElementById('error-telefono').textContent = 'Teléfono inválido (mínimo 10 dígitos)';
+                telefono.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                telefono.classList.add('is-valid');
+            }
+            
+            // Validar país
+            const pais = document.getElementById('pais');
+            if (pais.value === '') {
+                document.getElementById('error-pais').textContent = 'Selecciona un país';
+                pais.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                pais.classList.add('is-valid');
+            }
+            
+            // Validar mensaje
+            const mensaje = document.getElementById('mensaje');
+            if (mensaje.value.trim() === '') {
+                document.getElementById('error-mensaje').textContent = 'El mensaje no puede estar vacío';
+                mensaje.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                mensaje.classList.add('is-valid');
+            }
+            
+            // Si todo ok
+            if (isValid) {
+                alert('✅ Mensaje enviado correctamente');
+                document.getElementById('contactForm').reset();
+                document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-valid'));
+            }
+        }
+    </script>
+</body>
+</html>
