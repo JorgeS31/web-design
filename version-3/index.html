@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome versión 5 (SIN errores de tracking) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Assets/favicon.png">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="Assets/Css/styles.css">
+    
+    <style>
+        /* Badge simple - solo para referencia interna */
+        .version-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 80px;
+            font-weight: 600;
+            box-shadow: var(--box-shadow-lg);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.3);
+            font-size: 0.9rem;
+        }
+        
+        .version-badge i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Badge de versión -->
+    <div class="version-badge">
+        <i class="fas fa-code-branch"></i> Versión final
+    </div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-code"></i>
+                <span>DevForm</span>
+            </div>
+            
+            <div class="navbar-menu" id="navbarMenu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Portafolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="navbar-right">
+                <button class="btn-navbar" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="navbar-toggler" id="navbarToggler">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Formulario de Contacto</h1>
+                <p class="hero-subtitle">Por favor completa tus datos</p>
+                <div class="hero-badges">
+                    <span class="badge"><i class="fas fa-check-circle"></i> HTML5</span>
+                    <span class="badge"><i class="fas fa-check-circle"></i> CSS3</span>
+                    <span class="badge"><i class="fas fa-check-circle"></i> JavaScript</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario Section -->
+        <section class="form-section">
+            <div class="form-card">
+                <h1 class="form-title">Completa tu Información</h1>
+                <div class="form-sub">Por favor completa los siguientes datos:</div>
+
+                <form id="contactForm" onsubmit="event.preventDefault(); validateForm();">
+                    <!-- Nombre Completo -->
+                    <div class="form-group">
+                        <label for="nombreCompleto">
+                            <i class="fas fa-user"></i> NOMBRE COMPLETO
+                        </label>
+                        <input type="text" class="form-control" id="nombreCompleto" 
+                               placeholder="Ingresa tu nombre" 
+                               data-tooltip="Escribe tu nombre completo"
+                               required>
+                        <div class="error-message" id="error-nombre"></div>
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="form-group">
+                        <label for="correo">
+                            <i class="fas fa-envelope"></i> INGRESA TU CORREO
+                        </label>
+                        <input type="email" class="form-control" id="correo" 
+                               placeholder="ejemplo@correo.com"
+                               data-tooltip="ejemplo@correo.com"
+                               required>
+                        <div class="error-message" id="error-correo"></div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="form-group">
+                        <label for="telefono">
+                            <i class="fas fa-phone"></i> INGRESA TU TELÉFONO
+                        </label>
+                        <input type="tel" class="form-control" id="telefono" 
+                               placeholder="+34 123 456 789"
+                               data-tooltip="Incluye código de país"
+                               pattern="[0-9+\-\s]+"
+                               required>
+                        <div class="error-message" id="error-telefono"></div>
+                    </div>
+
+                    <!-- País -->
+                    <div class="form-group">
+                        <label for="pais">
+                            <i class="fas fa-globe"></i> SELECCIONA TU PAÍS
+                        </label>
+                        <select class="form-control" id="pais" required>
+                            <option value="" disabled selected>— Selecciona un país —</option>
+                            <option value="MX">🇲🇽 México</option>
+                            <option value="ES">🇪🇸 España</option>
+                            <option value="AR">🇦🇷 Argentina</option>
+                            <option value="CO">🇨🇴 Colombia</option>
+                            <option value="PE">🇵🇪 Perú</option>
+                            <option value="CL">🇨🇱 Chile</option>
+                            <option value="US">🇺🇸 Estados Unidos</option>
+                            <option value="VE">🇻🇪 Venezuela</option>
+                        </select>
+                        <div class="error-message" id="error-pais"></div>
+                    </div>
+
+                    <!-- Mensaje -->
+                    <div class="form-group">
+                        <label for="mensaje">
+                            <i class="fas fa-comment"></i> MENSAJE
+                        </label>
+                        <textarea class="form-control" id="mensaje" 
+                                  placeholder="Escribe tu mensaje..."
+                                  rows="5"
+                                  required></textarea>
+                        <div class="error-message" id="error-mensaje"></div>
+                    </div>
+
+                    <!-- Botón Enviar (único) -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <!-- Información del programador -->
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <i class="fas fa-user-code"></i> Programador
+                    </h4>
+                    <div class="footer-programador">
+                        <img src="https://ui-avatars.com/api/?name=Jorge+Luis+Ponce+S&background=0D6EFD&color=fff&size=100" alt="Jorge Luis" class="programador-img">
+                        <div class="programador-info">
+                            <h5>Jorge Luis Ponce Sandoval</h5>
+                            <p>Desarrollador Web</p>
+                            <div class="programador-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.5/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redes Sociales -->
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <i class="fas fa-share-alt"></i> Redes Sociales
+                    </h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+
+                <!-- Contacto -->
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <i class="fas fa-address-card"></i> Contacto
+                    </h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> jorge.ponce@dev.com</li>
+                        <li><i class="fas fa-phone"></i> +34 123 456 789</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Madrid, España</li>
+                    </ul>
+                </div>
+
+                <!-- Skills -->
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <i class="fas fa-code"></i> Skills
+                    </h4>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <span>HTML5</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 95%">95%</div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>CSS3</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%">90%</div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>JavaScript</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 85%">85%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <i class="far fa-copyright"></i> 2026 Jorge Luis Ponce Sandoval
+                </div>
+                <div class="footer-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            // Limpiar errores anteriores
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid', 'is-valid'));
+            
+            // Validar nombre
+            const nombre = document.getElementById('nombreCompleto');
+            if (nombre.value.trim() === '') {
+                showError('error-nombre', 'El nombre es obligatorio');
+                nombre.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nombre.classList.add('is-valid');
+            }
+            
+            // Validar correo
+            const correo = document.getElementById('correo');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo.value)) {
+                showError('error-correo', 'Ingresa un correo válido');
+                correo.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                correo.classList.add('is-valid');
+            }
+            
+            // Validar teléfono
+            const telefono = document.getElementById('telefono');
+            const phoneRegex = /^[+\d\s-]{10,}$/;
+            if (!phoneRegex.test(telefono.value)) {
+                showError('error-telefono', 'Ingresa un teléfono válido');
+                telefono.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                telefono.classList.add('is-valid');
+            }
+            
+            // Validar país
+            const pais = document.getElementById('pais');
+            if (pais.value === '') {
+                showError('error-pais', 'Selecciona un país');
+                pais.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                pais.classList.add('is-valid');
+            }
+            
+            // Validar mensaje
+            const mensaje = document.getElementById('mensaje');
+            if (mensaje.value.trim() === '') {
+                showError('error-mensaje', 'El mensaje no puede estar vacío');
+                mensaje.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                mensaje.classList.add('is-valid');
+            }
+            
+            // Si todo es válido
+            if (isValid) {
+                alert('✅ Formulario enviado correctamente');
+                document.getElementById('contactForm').reset();
+                document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-valid'));
+            }
+        }
+        
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+        
+        // Navbar toggle para móvil
+        document.getElementById('navbarToggler').addEventListener('click', function() {
+            document.getElementById('navbarMenu').classList.toggle('show');
+        });
+        
+        // Theme toggle (claro/oscuro)
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+        
+        // Cerrar navbar al hacer click en un enlace (móvil)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navbarMenu').classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
