@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto - Versión 2</title>
+    
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Assets/favicon.png">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="Assets/Css/styles.css">
+    
+    <style>
+        .version-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0d6efd;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="version-badge">🔥 VERSIÓN 2 - 100px</div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- Formulario Section -->
+        <section class="form-section">
+            <div class="form-card">
+                <h1 class="form-title">Completa tu Información</h1>
+                <div class="form-sub">Versión 2 · Bordes 100px</div>
+
+                <form id="contactForm" onsubmit="event.preventDefault(); validateForm();">
+                    <!-- Nombre Completo -->
+                    <div class="form-group">
+                        <label for="nombreCompleto">NOMBRE COMPLETO</label>
+                        <input type="text" class="form-control" id="nombreCompleto" 
+                               placeholder="Ingresa tu nombre" required>
+                        <div class="error-message" id="error-nombre"></div>
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="form-group">
+                        <label for="correo">CORREO ELECTRÓNICO</label>
+                        <input type="email" class="form-control" id="correo" 
+                               placeholder="ejemplo@correo.com" required>
+                        <div class="error-message" id="error-correo"></div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="form-group">
+                        <label for="telefono">TELÉFONO</label>
+                        <input type="tel" class="form-control" id="telefono" 
+                               placeholder="+34 123 456 789" required>
+                        <div class="error-message" id="error-telefono"></div>
+                    </div>
+
+                    <!-- País -->
+                    <div class="form-group">
+                        <label for="pais">PAÍS</label>
+                        <select class="form-control" id="pais" required>
+                            <option value="" disabled selected>— Selecciona un país —</option>
+                            <option value="MX">🇲🇽 México</option>
+                            <option value="ES">🇪🇸 España</option>
+                            <option value="AR">🇦🇷 Argentina</option>
+                            <option value="CO">🇨🇴 Colombia</option>
+                            <option value="PE">🇵🇪 Perú</option>
+                            <option value="CL">🇨🇱 Chile</option>
+                            <option value="US">🇺🇸 Estados Unidos</option>
+                        </select>
+                        <div class="error-message" id="error-pais"></div>
+                    </div>
+
+                    <!-- Mensaje -->
+                    <div class="form-group">
+                        <label for="mensaje">MENSAJE</label>
+                        <textarea class="form-control" id="mensaje" 
+                                  placeholder="Escribe tu mensaje..."
+                                  rows="5" required></textarea>
+                        <div class="error-message" id="error-mensaje"></div>
+                    </div>
+
+                    <!-- Botón Enviar -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            📨 Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER SENCILLO -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>Jorge Luis Ponce Sandoval · Versión 2 (100px)</p>
+            <p>✉️ jorge.ponce@dev.com · 📞 +34 123 456 789</p>
+            <p style="font-size: 0.8rem; margin-top: 1rem;">© 2026 - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid', 'is-valid'));
+            
+            const nombre = document.getElementById('nombreCompleto');
+            if (nombre.value.trim() === '') {
+                document.getElementById('error-nombre').textContent = 'El nombre es obligatorio';
+                nombre.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nombre.classList.add('is-valid');
+            }
+            
+            const correo = document.getElementById('correo');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo.value)) {
+                document.getElementById('error-correo').textContent = 'Correo inválido';
+                correo.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                correo.classList.add('is-valid');
+            }
+            
+            const telefono = document.getElementById('telefono');
+            const phoneRegex = /^[+\d\s-]{10,}$/;
+            if (!phoneRegex.test(telefono.value)) {
+                document.getElementById('error-telefono').textContent = 'Teléfono inválido (mínimo 10 dígitos)';
+                telefono.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                telefono.classList.add('is-valid');
+            }
+            
+            const pais = document.getElementById('pais');
+            if (pais.value === '') {
+                document.getElementById('error-pais').textContent = 'Selecciona un país';
+                pais.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                pais.classList.add('is-valid');
+            }
+            
+            const mensaje = document.getElementById('mensaje');
+            if (mensaje.value.trim() === '') {
+                document.getElementById('error-mensaje').textContent = 'El mensaje no puede estar vacío';
+                mensaje.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                mensaje.classList.add('is-valid');
+            }
+            
+            if (isValid) {
+                alert('✅ Formulario enviado correctamente');
+                document.getElementById('contactForm').reset();
+                document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-valid'));
+            }
+        }
+    </script>
+</body>
+</html>
